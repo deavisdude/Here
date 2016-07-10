@@ -138,6 +138,11 @@ public class EmailPasswordActivity extends BaseActivity implements
         // [END create_user_with_email]
     }
 
+    private void resetPassword(String email){
+        mAuth.sendPasswordResetEmail(email);
+        Toast.makeText(this, "Reset Email Sent!", Toast.LENGTH_SHORT).show();
+    }
+
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
         if (!validateForm()) {
@@ -205,6 +210,7 @@ public class EmailPasswordActivity extends BaseActivity implements
 
             findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
             findViewById(R.id.email_password_fields).setVisibility(View.GONE);
+            findViewById(R.id.forgotText).setVisibility(View.GONE);
             findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
@@ -212,6 +218,7 @@ public class EmailPasswordActivity extends BaseActivity implements
 
             findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
             findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
+            findViewById(R.id.forgotText).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_button).setVisibility(View.GONE);
         }
     }
@@ -227,6 +234,9 @@ public class EmailPasswordActivity extends BaseActivity implements
                 break;
             case R.id.sign_out_button:
                 signOut();
+                break;
+            case R.id.forgotText:
+                resetPassword(mEmailField.getText().toString());
                 break;
         }
     }
