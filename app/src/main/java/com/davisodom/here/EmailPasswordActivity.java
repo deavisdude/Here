@@ -236,7 +236,11 @@ public class EmailPasswordActivity extends BaseActivity implements
                 signOut();
                 break;
             case R.id.forgotText:
-                resetPassword(mEmailField.getText().toString());
+                try {
+                    resetPassword(mEmailField.getText().toString());
+                }catch(IllegalArgumentException e){
+                    Toast.makeText(this, "Please enter a valid email first.", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
